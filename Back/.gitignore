@@ -25,12 +25,12 @@ Thumbs.db
 dist/
 build/
 
-# Database dumps (si tu en fais)
+# Database dumps
 *.sql
 *.sqlite
 dump.rdb
 
-# Coverage (si tu fais des tests)
+# Coverage 
 coverage/
 .nyc_output/
 
@@ -38,5 +38,5 @@ coverage/
 .env.local
 .env.*.local
 
-# Uploads (dossier de fichiers uploadés par les utilisateurs)
+# Uploads 
 uploads/
