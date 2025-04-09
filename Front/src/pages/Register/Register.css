@@ -1,0 +1,71 @@
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.register-container h1 {
+    text-align: center;
+}
+
+.register-form-container {}
+
+.register-form-container form {
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.register-inputs {
+    display: flex;
+    gap: 20px;
+}
+
+.register-inputs input {
+    width: 250px;
+    height: 40px;
+    border: 2px solid black;
+    outline: none;
+    padding-left: 20px;
+    padding-right: 10px;
+    color: black;
+}
+
+.register-inputs input::placeholder {
+    color: black;
+}
+
+#email {
+    width: 100%;
+}
+
+.register-inputs input:focus {}
+
+.register-submit {
+    background-color: black;
+    border: none;
+    padding: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 1rem;
+    font-weight: 500;
+    color: white;
+}
+
+.register-submit:hover {
+    background-color: #424768;
+    transition: 0.3s;
+}
+
+.go-to-login {
+    color: black;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.go-to-login a {
+    cursor: pointer;
+    color: #F9B17B;
+}

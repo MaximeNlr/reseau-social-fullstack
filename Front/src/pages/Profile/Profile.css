@@ -1,0 +1,34 @@
+.user-profile-container {
+    width: 20%;
+    height: 50vh;
+    border-radius: 15px;
+}
+
+.profile-container {
+    display: flex;
+}
+
+.main-profile-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.user-profile-container img {
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+    margin-left: 50px;
+}
+
+.user-profile-img {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.user-profile-img input {
+    border: none;
+    background-color: white;
+}

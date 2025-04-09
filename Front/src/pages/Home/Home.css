@@ -1,0 +1,43 @@
+.home-container {
+    display: flex;
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    margin-left: 30%;
+    width: calc(100% - 200px);
+}
+
+.home-posts-container {
+    width: 60%;
+}
+
+.create-post-form-container {
+    width: 30%;
+    padding: 20px;
+}
+
+.create-post-form-container form {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid grey;
+    padding: 20px;
+}
+
+.create-post-form-container textarea {
+    background-color: transparent;
+    border: none;
+    resize: none;
+    width: 90%;
+}
+
+.create-post-form-container textarea::placeholder {
+    color: black;
+}
+
+.inputs-post {
+    display: flex;
+    gap: 20%;
+}

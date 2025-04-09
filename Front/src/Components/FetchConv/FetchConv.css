@@ -1,0 +1,24 @@
+.conv-user-container {
+    display: flex;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+    gap: 10px;
+    align-items: center;
+}
+
+.conv-user-container:hover {
+    background-color: rgba(62, 62, 62, 0.15);
+    transition: 0.2;
+}
+
+.conv-user-container img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.conv-user-text {
+    font-size: 0.9rem;
+}

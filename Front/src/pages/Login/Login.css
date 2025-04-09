@@ -1,0 +1,64 @@
+.login-register-container {
+    height: 100vh;
+    width: 100%;
+}
+
+.login-register-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    height: 100%;
+}
+
+.login-register-form-container h1 {
+    text-align: center;
+}
+
+.login-register-form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.login-inputs {
+    display: flex;
+    gap: 10px;
+    border: 2px solid black;
+    padding-left: 10px;
+}
+
+.login-inputs input {
+    border: none;
+    width: 300px;
+    height: 50px;
+    background-color: transparent;
+    color: black;
+}
+
+.login-inputs input::placeholder {
+    color: black;
+}
+
+.login-inputs img {
+    object-fit: contain;
+}
+
+.login-inputs input:focus {
+    outline: none;
+}
+
+.login-submit {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 20px;
+    cursor: pointer;
+}
+
+.login-submit:hover {
+    background-color: #424768;
+    transition: 0.3s;
+    color: #F9B17B;
+}
