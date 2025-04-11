@@ -66,7 +66,7 @@ const logout = (req, res) => {
         sameSite: 'Strict',
         path: '/'
     }); 
-    res.status(200).json({ success: true, message: "Déconnexion réussi !"});   
+    res.status(200).json({ success: true, message: "Déconnexion réussie !"});   
 }
 
 module.exports = { register, login, logout };

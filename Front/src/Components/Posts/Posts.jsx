@@ -22,12 +22,16 @@ export default function Posts({ posts, handleDelete }) {
             const data = await response.json();
             console.log(data);
             if (data.success == true) {
-                navigate('/post', { state: { post: data.result } });
+                navigate('/post', { state: { post: data.results } });
             }
         } catch (error) {
             console.error('Erreur lors de la récuperation des infos du post', error);
         }
     }
+    const handleDeleteClick = (e, postId) => {
+        e.stopPropagation();
+        handleDelete(postId);
+    };
     return (
         <div className="posts-component">
             {posts.map((post) => (
@@ -50,7 +54,7 @@ export default function Posts({ posts, handleDelete }) {
                                     <p>{post.comment_count}</p>
                                 </div>
                                 {isProfilePage && (
-                                    <button onClick={() => handleDelete(post.id)}>supprimer</button>
+                                    <button className="delete-post-btn" onClick={(e) => handleDeleteClick(e, post.id)}>supprimer</button>
                                 )}
                             </div>
                         </div>

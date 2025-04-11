@@ -18,7 +18,7 @@ export const UserProvider = ({ children }) => {
                 }
                 const response = await fetch('http://localhost:3000/api/get-user-info', options);
                 const data = await response.json();
-                setUser(data.user);
+                setUser(data.results);
             } catch (error) {
                 console.error('Erreur lors de la récuperation des infos utilisateur pour le header', error);
             }

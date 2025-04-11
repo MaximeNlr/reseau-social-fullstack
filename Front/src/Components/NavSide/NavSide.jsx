@@ -22,7 +22,7 @@ export default function NavSide() {
                 }
                 const response = await fetch('http://localhost:3000/api/get-user-info', options);
                 const data = await response.json();
-                const userData = data.user[0];
+                const userData = data.results[0];
                 setPseudo(userData.pseudo)
                 setImage(userData.profile_picture_url);
                 console.log(pseudo);
@@ -54,15 +54,6 @@ export default function NavSide() {
                         className={`nav-btn ${location.pathname === "/profile" ? "active" : ""}`}
                     >
                         Profil
-                    </NavLink>
-                </div>
-                <div className="nav-btn-container">
-                    <img src="../src/assets/icons/search-icon.png" alt="" />
-                    <NavLink
-                        to="/search"
-                        className={`nav-btn ${location.pathname === "" ? "active" : ""}`}
-                    >
-                        Rechercher
                     </NavLink>
                 </div>
                 <div className="nav-btn-container">

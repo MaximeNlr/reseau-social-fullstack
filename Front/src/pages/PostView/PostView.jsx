@@ -6,7 +6,14 @@ import { useUser } from "../../Components/UserContext/UserContext";
 
 const postPage = () => {
 
+    const userInfo = useUser();
+    const [user, setUser] = useState([]);
 
+    useEffect(() => {
+        if (userInfo && userInfo.length > 0) {
+            setUser(userInfo[0]);
+        }
+    }, [userInfo]);
 
     const location = useLocation();
     const post = location.state?.post[0];
@@ -59,17 +66,17 @@ const postPage = () => {
             console.error('Erreur lors de la création d un commentaire', error);
         }
     }
-    if (!post) {
-        return (
-            <p>Post introuvable</p>
-        )
-    }
+    // if (!post) {
+    //     return (
+    //         <p>Post introuvable</p>
+    //     )
+    // }
     return (
         <div className="post-view-container">
             <div className="nav-container">
                 <NavSide />
             </div>
-            <div className="main-container">
+            <div className="main-preview-container">
                 <div className="post-id-container">
                     <div className="post-id-info">
                         <div className="post-user-picture">
@@ -90,50 +97,52 @@ const postPage = () => {
                                     <p>{post.comment_count}</p>
                                 </div>
                             </div>
-                            <div className="post-comment-container">
-                                {/* <img src={`http://localhost:3000${userData.profile_picture_url}`} alt="" /> */}
-                                <form onSubmit={submitCommentForm}>
-                                    <textarea
-                                        name="text"
-                                        placeholder="Repondre"
-                                        onChange={e => setComment(e.target.value)}
-                                    >
-                                    </textarea>
-                                    <input
-                                        type="submit"
-                                    />
-                                </form>
-                            </div>
-                            <div className="all-comments-container">
-                                {allComment.map((comment) => (
-                                    <div className="users-comment-container" key={comment.id}>
-                                        <div className="user-comment">
-                                            <div className="user-pic">
-                                                <img src={`http://localhost:3000${comment.profile_picture_url}`} alt="" />
-                                            </div>
-                                            <div>
-                                                <div className="user-comment-text">
-                                                    <p> <strong>{comment.pseudo}</strong></p>
-                                                    <p>{comment.text}</p>
-                                                </div>
-                                                <div className="comment-btn-container">
-                                                    <div className="like-icon-container">
-                                                        <img src="../../src/assets/icons/like1-icon.png" alt="" />
-                                                        <p>0</p>
-                                                    </div>
-                                                    <div className="comment-icon-container">
-                                                        <img src="../../src/assets/icons/comment1-icon.png" alt="" />
-                                                        <p>0</p>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
                         </div>
                     </div>
+                </div>
+                <div className="post-comment-container">
+                    <img src={`http://localhost:3000${user.profile_picture_url}`} alt="" />
+                    <form onSubmit={submitCommentForm}>
+                        <textarea
+                            name="text"
+                            placeholder="Commenter"
+                            onChange={e => setComment(e.target.value)}
+                        >
+                        </textarea>
+                        <input
+                            type="submit"
+                            value="Commenter"
+                            className="btn-component"
+                        />
+                    </form>
+                </div>
+                <div className="all-comments-container">
+                    {allComment.map((comment) => (
+                        <div className="users-comment-container" key={comment.id}>
+                            <div className="user-comment">
+                                <div className="user-pic">
+                                    <img src={`http://localhost:3000${comment.profile_picture_url}`} alt="" />
+                                </div>
+                                <div>
+                                    <div className="user-comment-text">
+                                        <p> <strong>{comment.pseudo}</strong></p>
+                                        <p>{comment.text}</p>
+                                    </div>
+                                    <div className="comment-btn-container">
+                                        <div className="like-icon-container">
+                                            <img src="../../src/assets/icons/like1-icon.png" alt="" />
+                                            <p>0</p>
+                                        </div>
+                                        <div className="comment-icon-container">
+                                            <img src="../../src/assets/icons/comment1-icon.png" alt="" />
+                                            <p>0</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>

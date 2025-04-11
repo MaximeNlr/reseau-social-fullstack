@@ -18,7 +18,7 @@ export default function FetchConv({ conversationsFetched }) {
                 const response = await fetch('http://localhost:3000/api/get-conversations', options)
                 const data = await response.json();
                 console.log(data);
-                setConvs(data.result);
+                setConvs(data.results);
             } catch (error) {
                 console.error('Erreur lors de la récuperation des discussions', error);
             }

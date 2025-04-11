@@ -42,7 +42,7 @@ export default function Message() {
                 }
                 const response = await fetch(`http://localhost:3000/api/search-user?q=${encodeURIComponent(query)}`, options);
                 const data = await response.json();
-                setUsers(data.result);
+                setUsers(data.results);
             } catch (error) {
                 console.error('Erreur lors de la récuperation des utilisateurs depuis la barre de recherche message', error)
             } finally {

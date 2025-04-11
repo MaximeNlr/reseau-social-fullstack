@@ -3,11 +3,20 @@ import Header from "../../Components/Header/Header";
 import NavSide from "../../Components/NavSide/NavSide";
 import { useState, useEffect } from "react";
 import Posts from "../../Components/Posts/Posts";
+import { useUser } from "../../Components/UserContext/UserContext";
 
 export default function Profile() {
 
+    const userInfo = useUser();
+    const [user, setUser] = useState([]);
     const [userPosts, setUserPosts] = useState([]);
     const [image, setImage] = useState(null);
+
+    useEffect(() => {
+        if (userInfo && userInfo.length > 0) {
+            setUser(userInfo[0]);
+        }
+    }, [userInfo]);
 
     const handleFileChange = (e) => {
         setImage(e.target.files[0]);
@@ -26,14 +35,13 @@ export default function Profile() {
                 }
                 const response = await fetch('http://localhost:3000/api/get-users-posts', options);
                 const data = await response.json();
-                setUserPosts(data.posts);
+                setUserPosts(data.results);
             } catch (error) {
                 console.error('Erreur lors de la recuperation des posts de l\'utilisateur', error);
             }
         }
         fetchUsersPosts();
     }, [])
-
     const deletePost = async (postId) => {
         try {
             const options = {
@@ -45,11 +53,15 @@ export default function Profile() {
                 }
             }
             const response = await fetch(`http://localhost:3000/api/delete-post/${postId}`, options)
+            const data = await response.json();
+            if (data.success === true) {
+                setUserPosts((prevPosts) => prevPosts.filter(post => post.id !== postId));
+            }
+            console.log(data);
         } catch (error) {
             console.error("Erreur lors de la suppression du post", error);
         }
-    }
-
+    };
     const editProfile = async (e) => {
         e.preventDefault();
         const formData = new FormData();
@@ -73,29 +85,68 @@ export default function Profile() {
                 <NavSide />
             </div>
             <div className="main-profile-container">
-                <div className="home-posts-container" id="posts-profile">
+                <div className="home-posts-container">
                     <div className="profile-header">
-                        <h3>Vos publication</h3>
+                        <h3>Mes publications</h3>
                     </div>
-                    <Posts posts={userPosts} handleDelete={deletePost} />
+                    <div className="profile-posts-container">
+                        <Posts posts={userPosts} handleDelete={deletePost} />
+                    </div>
                 </div>
                 <div className="user-profile-container">
-                    <div className="user-profile-img">
-                        <div className="profile-img-container">
-                            <img src="" alt="" />
+                    <form onSubmit={editProfile}>
+                        <div className="user-profile-container-form">
+                            <div className="profile-img-container" style={{
+                                backgroundImage: `url(${`http://localhost:3000${user.profile_picture_url}`})`,
+                            }}>
+                                <div className="input-file-container">
+                                    <label htmlFor="file">
+                                        <img src="../../src/assets/icons/media-icon.png" alt="" />
+                                    </label>
+                                    <input
+                                        type="file"
+                                        id="file"
+                                        onChange={handleFileChange}
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <div className="profile-inputs">
+                                    <input
+                                        type="text"
+                                        placeholder="pseudo"
+                                        value=""
+                                    />
+                                    <input
+                                        type="email"
+                                        placeholder="Email"
+                                        value=""
+                                    />
+                                </div>
+                                <div className="profile-inputs">
+                                    <input
+                                        type="text"
+                                        placeholder="pseudo"
+                                        value=""
+                                    />
+                                    <input
+                                        type="email"
+                                        placeholder="Email"
+                                        value=""
+                                    />
+                                </div>
+                            </div>
+                            <div className="profile-edit-input">
+                                <input
+                                    type="submit"
+                                    value="Editer"
+                                    className="btn-component"
+                                />
+                            </div>
                         </div>
-                        <form onSubmit={editProfile}>
-                            <input
-                                type="file"
-                                onChange={handleFileChange}
-                            />
-                            <input
-                                type="submit"
-                            />
-                        </form>
-                    </div>
+                    </form>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     )
 }

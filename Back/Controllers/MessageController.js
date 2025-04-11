@@ -7,13 +7,10 @@ const createMessage = (req, res) => {
     
     const sql = 'INSERT INTO messages (text, sender_id, receiver_id) VALUES (?, ?, ?)';
     db.query(sql, [text, user_id, receiver_id], (err, results) => {
-        // if (!text || !receiver_id) {
-        //     return res.status(400).json({ success: false, message: "Données manquantes" });
-        // }
         if (err) {
             return res.status(500).json({success: false, message: 'Erreur lors de l\'envoie du message', err});
         }
-        return res.status(201).json({success: true, message: 'Message envoyé avec succés', result: results});
+        return res.status(201).json({success: true, message: 'Message envoyé avec succés', results});
     });
 }
 
@@ -31,7 +28,7 @@ const getMessages = (req, res) => {
         if (err) {
             return res.status(500).json({success: false, message: 'Erreur lors de la récuperation des messages', err});
         }
-        return res.status(200).json({success: true, message: 'Messages récuperé avec succés', result: results});
+        return res.status(200).json({success: true, message: 'Messages récuperés avec succés', results});
     });
 };
 
@@ -61,7 +58,7 @@ const getConversations = (req, res) => {
         if (err) {
             return res.status(500).json({success: false, message: 'Erreur lors de la récuperation des conversations', err});
         }
-        return res.status(200).json({success: true, message: 'Conversations récuperé avec succés', result: results});
+        return res.status(200).json({success: true, message: 'Conversations récupérés avec succès', results});
     });
 };
 
@@ -81,7 +78,7 @@ const getUserConversation = (req, res) => {
             console.log(err);
             return res.status(500).json({success: false, message: 'Erreurs lors de la récuperation de la conversation avec l\'utilisateur selectionné'})
         }
-        return res.status(500).json({success: true, messages: 'Conversation avec l\'utilisateur selectionné récuperé avec succés', result: results})
+        return res.status(500).json({success: true, messages: 'Conversation avec l\'utilisateur selectionné récupérés avec succès', results})
     });
 }   
 

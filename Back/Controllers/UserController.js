@@ -3,7 +3,7 @@ const db = require('../Config/db.js');
 const getUsersPosts = (req, res) => {
     const userId = req.user.id;
     const sql = `
-                    SELECT posts.id, posts.title, posts.subject, posts.image_url, posts.uploaded_at, users.pseudo, users.profile_picture_url
+                    SELECT posts.id, posts.subject, posts.image_url, posts.uploaded_at, users.pseudo, users.profile_picture_url
                     FROM posts
                     JOIN users ON posts.user_id = users.id
                     WHERE posts.user_id = ?
@@ -14,7 +14,7 @@ const getUsersPosts = (req, res) => {
             console.log(err);
             return res.status(500).json({success: false, message: `Erreur lors de la récupération des posts de l'utilisateur`});
         }
-        return res.status(201).json({success: true, message: `Posts de l'utilisateur recuperé avec succés`, posts: results});
+        return res.status(201).json({success: true, message: `Posts de l'utilisateur récupérés avec succès`, results});
     });
 };
 
@@ -26,7 +26,7 @@ const getUser = (req, res) => {
         if (err) {
             return res.status(500).json({success: false, message: 'Erreur lors de la récuperation des infos de l\'utilisateur'});
         }
-        return res.status(200).json({success: true, message: 'Infos utilisateur récuperer avec succés', user: results});
+        return res.status(200).json({success: true, message: 'Infos utilisateur récupérés avec succès', results});
     });
 ;}
 
@@ -40,7 +40,7 @@ const editUser = (req,res) => {
             console.log(err);
             return res.status(500).json({success: false, message: 'Erreur lors de l\'ajout de la photo de profil'})
         }
-        return res.status(201).json({success: true, message: 'Photo de profil ajouté avec succés'});
+        return res.status(201).json({success: true, message: 'Photo de profil ajoutée avec succés'});
     });
 };
 
@@ -55,7 +55,7 @@ const searchUsers = (req, res) => {
             console.log(err);
             return res.status(500).json({success: false, message: 'Erreur lors de la récuperation des utilisateuts via la barre de recherche'});
         }
-        return res.status(200).json({success: true, message: 'Utilisateurs récuperé avec succés', result: results});
+        return res.status(200).json({success: true, message: 'Utilisateurs récupérés avec succés', results});
     });
 };
 module.exports = { getUsersPosts, editUser, getUser, searchUsers };

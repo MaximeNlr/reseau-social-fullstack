@@ -4,15 +4,14 @@ const { post } = require('../Routes/Routes.js');
 const createComment = (req, res) => {
     const { text, postId } = req.body;
     const userId = req.user.id;
-    const count = 1;
     
     const sql = 'INSERT INTO comments (text, user_id, post_id) VALUES (?, ?, ?)';
     db.query(sql, [text, userId, postId], (err, results) => {
         if (err) {
             console.log(err);
-            return res.status(500).json({success: false, message: 'Erreur lors de l ajout du commentaire', err});
+            return res.status(500).json({success: false, message: 'Erreur lors de l\'ajout du commentaire', err});
         }
-        return res.status(201).json({success: true, message: 'Commentaire ajouter une succés', result: results});
+        return res.status(201).json({success: true, message: 'Commentaires ajoutés, un succès', results});
     });
 }
 
@@ -24,11 +23,11 @@ const getPostComments = (req, res) => {
                     JOIN users ON comments.user_id = users.id
                     WHERE comments.post_id = ? 
                 `;
-    db. query(sql, [postId], (err, results) => {
+    db.query(sql, [postId], (err, results) => {
         if (err) {
-            return res.status(500).json({success: false, message: 'Erreur lors de la récuperation des commentaires', err});
+            return res.status(500).json({success: false, message: 'Erreur lors de la récupération des commentaires', err});
         };
-        return res.status(200).json({success: true, message: 'Commentaires récuperé avec succés', results: results})
+        return res.status(200).json({success: true, message: 'Commentaires récupérés avec succès', results})
     });
 }
 

@@ -3,14 +3,25 @@ import Header from "../../Components/Header/Header";
 import NavSide from "../../Components/NavSide/NavSide";
 import { useState, useEffect } from "react";
 import Posts from "../../Components/Posts/Posts";
+import { useUser } from "../../Components/UserContext/UserContext";
 
 
 
 export default function Home() {
 
+    const userInfo = useUser();
+    const [user, setUser] = useState([]);
+
+    useEffect(() => {
+        if (userInfo && userInfo.length > 0) {
+            setUser(userInfo[0]);
+        }
+    }, [userInfo]);
+
     const [posts, setPosts] = useState([]);
     const [subject, setSubject] = useState("");
     const [image, setImage] = useState(null);
+    const [imgPreview, setImgPreview] = useState(null);
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -21,9 +32,7 @@ export default function Home() {
                 }
                 const response = await fetch("http://localhost:3000/api/get-all-posts", options)
                 const data = await response.json();
-                console.log("home page data", data);
-
-                setPosts(data.posts);
+                setPosts(data.results);
             } catch (error) {
                 console.error("Erreur lors de la recuperation du fil d'actualité");
             }
@@ -33,6 +42,7 @@ export default function Home() {
 
     const handleFileChange = (e) => {
         setImage(e.target.files[0]);
+        setImgPreview(URL.createObjectURL(e.target.files[0]));
     };
 
     const post_form = async (e) => {
@@ -54,45 +64,47 @@ export default function Home() {
             console.error("Erreur lors de la création du post !", error);
         }
     }
-
     return (
         <div className="home-container">
             <div className="nav-container">
                 <NavSide />
             </div>
             <div className="main-container">
-                {/* <div className="create-post-form-container">
+                <div className="home-posts-container">
+                    <Posts posts={posts} />
+                </div>
+                <div className="create-post-form-container">
                     <form onSubmit={post_form}>
                         <div className="preview-container">
-                            <textarea
-                                name="subject"
-                                id=""
-                                placeholder="Quoi de neuf ?"
-                                onChange={e => setSubject(e.target.value)}
-                            >
-                            </textarea>
+                            <div className="post-form-img-txt-container">
+                                <img src={`http://localhost:3000${user.profile_picture_url}`} alt="Icon de l'utilisateur" />
+                                <textarea
+                                    name="subject"
+                                    placeholder="Quoi de neuf ?"
+                                    onChange={e => setSubject(e.target.value)}
+                                >
+                                </textarea>
+                            </div>
                             <div className="img-preview-container">
-                                <img src={image} alt="" />
+                                <img src={imgPreview} />
                             </div>
                         </div>
-
                         <div className="inputs-post">
+                            <label htmlFor="input-file"><img src="../../src/assets/icons/media-icon.png" alt="icon media" /></label>
                             <input
                                 type="file"
+                                name="file"
                                 onChange={handleFileChange}
+                                id="input-file"
                             />
-
-                            <input
+                            <input className="btn-component"
+                                value="Publier"
                                 type="submit"
                             />
                         </div>
                     </form>
-                </div> */}
-                <div className="home-posts-container">
-                    <Posts posts={posts} />
                 </div>
             </div>
-
         </div >
     )
 }

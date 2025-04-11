@@ -3,7 +3,8 @@
     flex-direction: column;
     gap: 10px;
     cursor: pointer;
-    border-top: 1px solid rgba(128, 128, 128, 0.251);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.251);
+    border-right: 1px solid rgba(128, 128, 128, 0.251);
     transition: 0.2s;
 }
 
@@ -71,4 +72,21 @@
     margin: auto;
     border-radius: 50%;
     object-fit: cover;
+}
+
+.delete-post-btn {
+    cursor: pointer;
+    border: 1px solid transparent;
+    color: white;
+    background-color: black;
+    border-radius: 15px;
+    transition: 0.2s;
+}
+
+.delete-post-btn:hover {
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+    border-radius: 15px;
+    transition: 0.2s;
 }

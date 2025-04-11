@@ -19,7 +19,7 @@ export default function NewMessage({ selectedUser }) {
                 const response = await fetch(`http://localhost:3000/api/get-messages${selectedUser.id}`, options);
                 const data = await response.json();
                 console.log('fetch messages', data);
-                setmessages(data.result);
+                setmessages(data.results);
 
             } catch (error) {
                 console.error('Erreur lors de la récuperation messsages', error);

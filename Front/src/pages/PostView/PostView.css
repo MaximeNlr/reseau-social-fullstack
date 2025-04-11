@@ -8,6 +8,15 @@
     align-items: center;
     gap: 10px;
     width: 60%;
+    border-right: 1px solid rgba(128, 128, 128, 0.251);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.251);
+}
+
+.main-preview-container {
+    display: flex;
+    flex-direction: column;
+    margin-left: 350px;
+    width: calc(100% - 350px);
 }
 
 .post-id-container img {
@@ -16,7 +25,8 @@
 }
 
 .users-comment-container {
-    border-bottom: 1px solid rgba(128, 128, 128, 0.119);
+    border-top: 1px solid rgba(128, 128, 128, 0.251);
+    border-right: 1px solid rgba(128, 128, 128, 0.251);
 }
 
 .post-id-info {
@@ -32,17 +42,20 @@
 
 .post-comment-container {
     display: flex;
-    margin-top: 20px;
-    margin-bottom: 50px;
-    width: 100%;
+    width: 60%;
     gap: 20px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.119);
+    border-right: 1px solid rgba(128, 128, 128, 0.119);
 }
 
 .post-comment-container img {
-    height: 40px;
-    width: 40px;
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
-    margin: auto;
+    object-fit: cover;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .post-comment-container textarea {
@@ -60,21 +73,21 @@
 .all-comments-container {
     display: flex;
     flex-direction: column;
-    gap: 5vh;
+    width: 60%;
 }
 
 .user-pic img {
-    height: 40px;
-    width: 40px;
-    object-fit: cover;
-    margin: auto;
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .user-comment {
     display: flex;
     gap: 10px;
     padding-bottom: 10px;
+    padding: 20px;
 }
 
 .user-comment-text {

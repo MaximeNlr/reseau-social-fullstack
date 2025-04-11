@@ -26,10 +26,12 @@ dist/
 build/
 
 # Database dumps
+# Database dumps
 *.sql
 *.sqlite
 dump.rdb
 
+# Coverage 
 # Coverage 
 coverage/
 .nyc_output/
@@ -38,5 +40,5 @@ coverage/
 .env.local
 .env.*.local
 
-# Uploads 
+# Uploads
 uploads/

@@ -4,8 +4,8 @@
 
 .message-users-container {
     display: flex;
-    margin-left: 200px;
-    width: calc(100% - 200px);
+    margin-left: 350px;
+    width: calc(100% - 350px);
     height: 100vh;
 }
 
