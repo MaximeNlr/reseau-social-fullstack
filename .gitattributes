@@ -10,3 +10,7 @@ Front/build/* linguist-detectable=false
 # Forcer la détection des fichiers JavaScript
 Front/src/** linguist-language=JavaScript
 Back/** linguist-language=JavaScript
+
+# Forcer la détection des fichiers CSS
+Front/src/**/*.css linguist-language=CSS
+Front/public/**/*.css linguist-language=CSS
