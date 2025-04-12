@@ -1,0 +1,12 @@
+# Ignore les fichiers statiques et de build du front-end
+front/public/* linguist-detectable=false
+front/build/* linguist-detectable=false
+
+# Ignore certains fichiers non pertinents pour la détection
+*.env linguist-detectable=false
+*.json linguist-detectable=false
+*.md linguist-detectable=false
+
+# Forcer la détection des fichiers JavaScript
+front/src/** linguist-language=JavaScript
+back/** linguist-language=JavaScript
