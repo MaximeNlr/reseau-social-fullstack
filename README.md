@@ -25,7 +25,7 @@ Ce projet est un réseau social full-stack permettant aux utilisateurs de :
 
 Le projet n'est pas encore terminé. D'autres fonctionnalités sont à venir, notamment :
 
-- Fonctionnalité de "Like" sur les posts
+- Fonctionnalité de d'unfollow sur les posts
 - Système de notifications
 - Recherche d'utilisateurs et de posts
 - etc....
