@@ -1,8 +1,8 @@
 import './Message.css';
 import { useState, useEffect } from 'react';
-import NewMessage from '../../Components/NewMessage/NewMessage';
+import UserConversation from '../../Components/UserConversation/UserConversation';
 import NavSide from '../../Components/NavSide/NavSide';
-import FetchConv from '../../Components/FetchConv/FetchConv';
+import MsgList from '../../Components/MsgList/MsgList';
 
 export default function Message() {
 
@@ -15,6 +15,7 @@ export default function Message() {
     const [loading, setLoading] = useState(false);
     const [messageText, setMessageText] = useState("");
     const [conversationsData, setConversationsData] = useState(null);
+    const [messages, setMessages] = useState([]);
 
     const handleConversationsData = (data) => {
         setConversationsData(data);
@@ -99,21 +100,21 @@ export default function Message() {
                             onChange={e => setSearchContact(e.target.value)}
                         />
                     </div>
-                    <FetchConv ConversationsFetched={handleConversationsData} />
-                </div>
-                {conversationsData && (
-                    <div>
-                        <p>salut</p>
+                    <div className="fetchConv-component">
+                        <MsgList
+                            ConversationsFetched={handleConversationsData}
+                            onSelectUser={handleSelectUser}
+                        />
                     </div>
-                )}
+                </div>
                 {selectedUser && (
                     <div className="conv-container">
                         <div className="conv-header">
                             <img src={`http://localhost:3000${selectedUser.profile_picture_url}`} alt="" />
                             <h3>{selectedUser.pseudo}</h3>
                         </div>
-                        <div className="conv-component">
-                            <NewMessage selectedUser={selectedUser} />
+                        <div className="new-message-component">
+                            <UserConversation key={selectedUser.id} selectedUser={selectedUser} />
                         </div>
                         <div className="conv-inputs-container">
                             <div className="conv-inputs">

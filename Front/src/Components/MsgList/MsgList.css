@@ -5,6 +5,7 @@
     transition: 0.2s;
     gap: 10px;
     align-items: center;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.251);
 }
 
 .conv-user-container:hover {

@@ -21,6 +21,7 @@
 
 .sent {
     display: flex;
+    align-items: center;
     flex-direction: row-reverse;
     border-radius: 15px;
     color: white;

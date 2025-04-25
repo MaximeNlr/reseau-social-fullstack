@@ -1,8 +1,12 @@
 import "./Login.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useUser } from "../../Components/UserContext/UserContext";
 
 export default function Login() {
+
+    const { refreshUser } = useUser();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -26,8 +30,8 @@ export default function Login() {
             }
             const response = await fetch("http://localhost:3000/api/login", options);
             const data = await response.json();
-            console.log(data);
             if (data.success == true) {
+                await refreshUser();
                 navigate("/");
             }
         } catch (error) {
@@ -63,6 +67,9 @@ export default function Login() {
                     </div>
                     <input type="submit" className="login-submit" value="Se connecter" />
                 </form>
+                <div className="go-to-login">
+                    <p>Pas encore de compte ? Cliquez <Link to="/register">ici</Link> pour vous inscrire</p>
+                </div>
             </div>
         </div>
     )

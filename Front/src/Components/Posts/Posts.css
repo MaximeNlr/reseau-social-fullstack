@@ -22,9 +22,19 @@
     border-radius: 10px;
 }
 
-.post-container img {
+.h4-option-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.h4-option-container button {
+    padding: 8px;
+}
+
+.post-content {
     width: 100%;
-    margin-top: 10px;
 }
 
 .post-content h4 {
@@ -35,6 +45,11 @@
     max-width: 600px;
     max-height: 400px;
     object-fit: contain;
+}
+
+.content-img-container img {
+    width: 100%;
+    margin-top: 10px;
 }
 
 .post-btn-container {

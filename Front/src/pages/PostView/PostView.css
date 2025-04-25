@@ -25,7 +25,9 @@
 }
 
 .users-comment-container {
-    border-top: 1px solid rgba(128, 128, 128, 0.251);
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.251);
     border-right: 1px solid rgba(128, 128, 128, 0.251);
 }
 
@@ -73,7 +75,7 @@
 .all-comments-container {
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 60%
 }
 
 .user-pic img {
@@ -114,4 +116,21 @@
 .comment-icon-container {
     display: flex;
     gap: 5px;
+}
+
+.option-icon-container {
+    margin-top: 5px;
+    margin-right: 5px;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.option-icon-container:hover {
+    background-color: grey;
+}
+
+.option-icon-container img {
+    width: 25px;
+    height: 25px;
 }

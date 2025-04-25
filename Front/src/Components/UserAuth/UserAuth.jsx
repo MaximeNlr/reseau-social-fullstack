@@ -14,7 +14,6 @@ export default function UserAuth() {
                 }
                 const response = await fetch("http://localhost:3000/api/check-auth", options)
                 const data = await response.json();
-                console.log('info utilisateur ->', data);
                 if (data.success === false) {
                     setIsAuth(false);
                     navigate('/register');

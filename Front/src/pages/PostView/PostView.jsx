@@ -6,14 +6,8 @@ import { useUser } from "../../Components/UserContext/UserContext";
 
 const postPage = () => {
 
-    const userInfo = useUser();
-    const [user, setUser] = useState([]);
-
-    useEffect(() => {
-        if (userInfo && userInfo.length > 0) {
-            setUser(userInfo[0]);
-        }
-    }, [userInfo]);
+    const { user } = useUser();
+    const userInfo = Array.isArray(user) && user.length > 0 ? user[0] : null;
 
     const location = useLocation();
     const post = location.state?.post[0];
@@ -32,9 +26,8 @@ const postPage = () => {
                         'Authorization': 'application/json'
                     }
                 }
-                const response = await fetch(`http://localhost:3000/api/get-post-comments${post.id}`, options)
+                const response = await fetch(`http://localhost:3000/api/get-post-comments/${post.id}`, options)
                 const data = await response.json();
-                console.log(data);
                 setAllComment(data.results);
 
             } catch (error) {
@@ -60,17 +53,29 @@ const postPage = () => {
             }
             const response = await fetch('http://localhost:3000/api/create-comment', options)
             const data = await response.json();
-            console.log('create comment ->', data);
-
         } catch (error) {
             console.error('Erreur lors de la création d un commentaire', error);
         }
+    };
+    const deleteComment = async (commentId) => {
+        try {
+            const options = {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+            }
+            const response = await fetch(`http://localhost:3000/api/delete-comment/${commentId}`, options)
+            const data = await response.json();
+            console.log(data);
+            setAllComment((prevComment) => prevComment.filter(comment => comment.id !== commentId));
+        } catch (error) {
+            console.error('Erreur lors de la suppression du commentaire', error);
+        }
+    };
+    const deleteCommentClick = (e, commentId) => {
+        e.stopPropagation();
+        deleteComment(commentId);
     }
-    // if (!post) {
-    //     return (
-    //         <p>Post introuvable</p>
-    //     )
-    // }
     return (
         <div className="post-view-container">
             <div className="nav-container">
@@ -88,9 +93,9 @@ const postPage = () => {
                             <p>{post.subject}</p>
                             <img className="content-img" src={`http://localhost:3000${post.image_url}`} alt="" />
                             <div className="post-btn-container">
-                                <div className="like-container">
+                                <div className={`like-container ${post.liked_by_user ? 'liked_container' : ''}`}>
                                     <img src="../../src/assets/icons/like1-icon.png" alt="" />
-                                    <p>{post.likes}</p>
+                                    <p>{post.like_count}</p>
                                 </div>
                                 <div className="comment-container">
                                     <img src="../../src/assets/icons/comment1-icon.png" alt="" />
@@ -101,7 +106,7 @@ const postPage = () => {
                     </div>
                 </div>
                 <div className="post-comment-container">
-                    <img src={`http://localhost:3000${user.profile_picture_url}`} alt="" />
+                    <img src={`http://localhost:3000${userInfo?.profile_picture_url || '../../src/assets/icons/default-user.png'}`} alt="" />
                     <form onSubmit={submitCommentForm}>
                         <textarea
                             name="text"
@@ -139,8 +144,12 @@ const postPage = () => {
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+                            {comment.user_id === userInfo.id && (
+                                <div className="option-icon-container" onClick={(e) => deleteCommentClick(e, comment.id)}>
+                                    <img src="../../src/assets/icons/option-icon.png" alt="icon options" />
+                                </div>
+                            )}
                         </div>
                     ))}
                 </div>

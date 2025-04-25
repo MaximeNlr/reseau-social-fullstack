@@ -15,22 +15,20 @@
     position: sticky;
     top: 0px;
     background-color: white;
-    height: 50px;
+    height: 60px;
     border-bottom: 1px solid rgba(128, 128, 128, 0.251);
     border-left: 1px solid rgba(128, 128, 128, 0.251);
     border-right: 1px solid rgba(128, 128, 128, 0.251);
 }
 
 .user-profile-container {
-    border-radius: 15px;
-    border: 1px solid black;
+    width: 38%;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.251);
+    border-top: 1px solid rgba(128, 128, 128, 0.251);
     height: 50vh;
-    margin-top: 50px;
     padding: 20px;
-    width: 30%;
-    margin-left: 20px;
     position: sticky;
-    top: 50px;
+    top: 0px;
 }
 
 .user-profile-container img {
@@ -55,9 +53,18 @@
     width: 100%;
 }
 
+.profile-form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .profile-inputs {
     display: flex;
-    gap: 20px;
+}
+
+.profile-inputs label {
+    width: 70px;
 }
 
 .profile-img-container {

@@ -18,7 +18,7 @@ const getMessages = (req, res) => {
     const { receiver_id } = req.params;
     const user_id = req.user.id;
     const sql = `
-                SELECT messages.id, messages.text, messages.sender_id, messages.receiver_id
+                SELECT messages.id, messages.text, messages.sender_id, messages.receiver_id, messages.created_at
                 FROM messages
                 WHERE (messages.sender_id = ? AND messages.receiver_id = ?)
                    OR (messages.sender_id = ? AND messages.receiver_id = ?)
@@ -62,24 +62,18 @@ const getConversations = (req, res) => {
     });
 };
 
-const getUserConversation = (req, res) => {
+const deleteMessage = (req, res) => {
+    const message_id = req.params.id;
     const user_id = req.user.id;
-    const receiver_id = req.params.id;
-
     const sql = `
-                SELECT messages.id, messages.text, messages.sender_id, messages.receiver_id
-                FROM messages
-                WHERE (messages.sender_id = ? AND messages.receiver_id = ?)
-                OR (messages.sender_id = ? AND messages.receiver_id = ?)
-                ORDER BY created_at DESC;
+                DELETE FROM messages WHERE id = ? AND sender_id = ?
                 `;
-    db.query(sql, [user_id, receiver_id, receiver_id, user_id], (err, results) => {
+    db.query(sql, [message_id, user_id], (err, results) => {
         if (err) {
-            console.log(err);
-            return res.status(500).json({success: false, message: 'Erreurs lors de la récuperation de la conversation avec l\'utilisateur selectionné'})
+            return res.status(500).json({success: false, message: 'Erreur lors de la suppression du message', err});
         }
-        return res.status(500).json({success: true, messages: 'Conversation avec l\'utilisateur selectionné récupérés avec succès', results})
+        return res.status(200).json({success: true, message: 'Message supprimé avec succés', results});
     });
-}   
-
-module.exports = { createMessage, getMessages, getConversations, getUserConversation };
+};
+  
+module.exports = { createMessage, getMessages, getConversations, deleteMessage };

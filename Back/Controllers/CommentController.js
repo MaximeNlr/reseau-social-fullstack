@@ -1,5 +1,4 @@
 const db = require('../Config/db.js');
-const { post } = require('../Routes/Routes.js');
 
 const createComment = (req, res) => {
     const { text, postId } = req.body;
@@ -8,7 +7,6 @@ const createComment = (req, res) => {
     const sql = 'INSERT INTO comments (text, user_id, post_id) VALUES (?, ?, ?)';
     db.query(sql, [text, userId, postId], (err, results) => {
         if (err) {
-            console.log(err);
             return res.status(500).json({success: false, message: 'Erreur lors de l\'ajout du commentaire', err});
         }
         return res.status(201).json({success: true, message: 'Commentaires ajoutés, un succès', results});
@@ -31,4 +29,18 @@ const getPostComments = (req, res) => {
     });
 }
 
-module.exports = { createComment, getPostComments };
+const deleteComment = (req, res) => {
+    const userId = req.user.id;
+    const commentId = req.params.id;
+    const sql = `
+                DELETE FROM comments WHERE id = ? AND user_id = ?
+                `;
+    db.query(sql, [commentId, userId], (err, results) => {
+        if (err) {
+            return res.status(500).json({success: false, message: 'Erreur lors de la suppression du commentaire', err});
+        }
+        return res.status(200).json({success: true, message: 'Commentaire supprimé avec succés', results});
+    });
+};
+
+module.exports = { createComment, getPostComments, deleteComment };

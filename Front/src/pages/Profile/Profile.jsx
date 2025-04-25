@@ -7,16 +7,11 @@ import { useUser } from "../../Components/UserContext/UserContext";
 
 export default function Profile() {
 
-    const userInfo = useUser();
-    const [user, setUser] = useState([]);
+    const { user } = useUser();
     const [userPosts, setUserPosts] = useState([]);
     const [image, setImage] = useState(null);
 
-    useEffect(() => {
-        if (userInfo && userInfo.length > 0) {
-            setUser(userInfo[0]);
-        }
-    }, [userInfo]);
+    const userInfo = Array.isArray(user) && user.length > 0 ? user[0] : null;
 
     const handleFileChange = (e) => {
         setImage(e.target.files[0]);
@@ -54,6 +49,7 @@ export default function Profile() {
             }
             const response = await fetch(`http://localhost:3000/api/delete-post/${postId}`, options)
             const data = await response.json();
+            console.log(data);
             if (data.success === true) {
                 setUserPosts((prevPosts) => prevPosts.filter(post => post.id !== postId));
             }
@@ -97,7 +93,7 @@ export default function Profile() {
                     <form onSubmit={editProfile}>
                         <div className="user-profile-container-form">
                             <div className="profile-img-container" style={{
-                                backgroundImage: `url(${`http://localhost:3000${user.profile_picture_url}`})`,
+                                backgroundImage: `url(${`http://localhost:3000${userInfo?.profile_picture_url || '../../src/assets/icons/default-user.png'}`})`,
                             }}>
                                 <div className="input-file-container">
                                     <label htmlFor="file">
@@ -110,29 +106,29 @@ export default function Profile() {
                                     />
                                 </div>
                             </div>
-                            <div>
+                            <div className="profile-form-inputs">
                                 <div className="profile-inputs">
+                                    <label htmlFor="name">Nom :</label>
                                     <input
                                         type="text"
-                                        placeholder="pseudo"
-                                        value=""
-                                    />
-                                    <input
-                                        type="email"
-                                        placeholder="Email"
-                                        value=""
                                     />
                                 </div>
                                 <div className="profile-inputs">
+                                    <label htmlFor="firstname">Prénom :</label>
                                     <input
                                         type="text"
-                                        placeholder="pseudo"
-                                        value=""
                                     />
+                                </div>
+                                <div className="profile-inputs">
+                                    <label htmlFor="pseudo">Pseudo :</label>
+                                    <input
+                                        type="text"
+                                    />
+                                </div>
+                                <div className="profile-inputs">
+                                    <label htmlFor="email">Email :</label>
                                     <input
                                         type="email"
-                                        placeholder="Email"
-                                        value=""
                                     />
                                 </div>
                             </div>

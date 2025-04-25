@@ -47,7 +47,7 @@ const login = (req, res) => {
             if (!isMatch) {
                 return res.status(400).json({success: false, message: 'Mot de passe incorrect !'});
             }
-            const token = jwt.sign({id: user.id, pseudo: user.pseudo, pp: user.profile_picture_url}, process.env.JWT_SECRET, {expiresIn: '1h'});
+            const token = jwt.sign({id: user.id}, process.env.JWT_SECRET, {expiresIn: '1h'});
             res.cookie('token', token, {
                 httpOnly: true,
                 secure: false,

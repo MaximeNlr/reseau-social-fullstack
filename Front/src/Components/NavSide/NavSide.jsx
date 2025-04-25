@@ -1,40 +1,14 @@
 import "./NavSide.css";
 import { NavLink, useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
 import Logout from "../Logout/Logout";
+import { useUser } from "../UserContext/UserContext";
 
 export default function NavSide() {
 
-    const [pseudo, setPseudo] = useState("");
-    const [image, setImage] = useState(null);
+    const { user } = useUser();
     const location = useLocation();
 
-    useEffect(() => {
-        const fetchUserInfo = async () => {
-            try {
-                const options = {
-                    method: 'GET',
-                    credentials: 'include',
-                    headers: {
-                        'Content-type': 'application/json',
-                        'Authorization': 'application/json'
-                    },
-                }
-                const response = await fetch('http://localhost:3000/api/get-user-info', options);
-                const data = await response.json();
-                const userData = data.results[0];
-                setPseudo(userData.pseudo)
-                setImage(userData.profile_picture_url);
-                console.log(pseudo);
-
-            } catch (error) {
-                console.error('Erreur lors de la récuperation des infos utilisateur pour le header', error);
-                setUserInfo("");
-            }
-        }
-        fetchUserInfo();
-    }, []);
-
+    const userInfo = Array.isArray(user) && user.length > 0 ? user[0] : null;
     return (
         <div className="navside-container">
             <div className="nav-bar-container">
@@ -69,8 +43,8 @@ export default function NavSide() {
             </div>
             <div>
                 <div className="profil-header">
-                    <img src={`http://localhost:3000${image}`} alt="" />
-                    <p>{pseudo}</p>
+                    <img src={`http://localhost:3000${userInfo?.profile_picture_url || '../../src/assets/icons/default-user.png'}`} alt="Icon de l'utilisateur" />
+                    <p>{userInfo?.pseudo || 'none'}</p>
                 </div>
                 <div className="inputs-header">
                     <Logout />
